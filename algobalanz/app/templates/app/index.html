@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Luis Forni | Balanz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-primary">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Luis Forni</span>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col-6 mx-auto mt-5">
+        <h3 class="mb-4">Dolar MEP/CABLE</h3>
+        <p id="mep_al30_ci">{{ text }}</p>
+        <p id="cab_al30_ci"></p>
+        <p id="mep_al30_24"></p>
+        <p id="cab_al30_24"></p>
+        <p id="mep_al30_48"></p>
+        <p id="cab_al30_48"></p>
+
+        <p id="mep_gd30_ci"></p>
+        <p id="cab_gd30_ci"></p>
+        <p id="mep_gd30_24"></p>
+        <p id="cab_gd30_24"></p>
+        <p id="mep_gd30_48"></p>
+        <p id="cab_gd30_48"></p>
+      </div>
+    </div>
+    
+  </body>
+  <script>
+    let socket = new WebSocket('wss://test-algobalanz.herokuapp.com/ws/luis');
+    socket.onopen = function(e){
+      alert('Conexión OK!');
+    };
+    
+    al30a_ci_nombre = ''
+    al30a_ci_instru = ''
+    al30a_ci_plazol = ''
+    al30a_ci_precio = ''
+    al30c_ci_nombre = ''
+    al30c_ci_instru = ''
+    al30c_ci_plazol = ''
+    al30c_ci_precio = ''
+    al30d_ci_nombre = ''
+    al30d_ci_instru = ''
+    al30d_ci_plazol = ''
+    al30d_ci_precio = ''
+    al30a_24_nombre = ''
+    al30a_24_instru = ''
+    al30a_24_plazol = ''
+    al30a_24_precio = ''
+    al30c_24_nombre = ''
+    al30c_24_instru = ''
+    al30c_24_plazol = ''
+    al30c_24_precio = ''
+    al30d_24_nombre = ''
+    al30d_24_instru = ''
+    al30d_24_plazol = ''
+    al30d_24_precio = ''
+    al30a_48_nombre = ''
+    al30a_48_instru = ''
+    al30a_48_plazol = ''
+    al30a_48_precio = ''
+    al30c_48_nombre = ''
+    al30c_48_instru = ''
+    al30c_48_plazol = ''
+    al30c_48_precio = ''
+    al30d_48_nombre = ''
+    al30d_48_instru = ''
+    al30d_48_plazol = ''
+    al30d_48_precio = ''
+    
+    gd30a_ci_nombre = ''
+    gd30a_ci_instru = ''
+    gd30a_ci_plazol = ''
+    gd30a_ci_precio = ''
+    gd30c_ci_nombre = ''
+    gd30c_ci_instru = ''
+    gd30c_ci_plazol = ''
+    gd30c_ci_precio = ''
+    gd30d_ci_nombre = ''
+    gd30d_ci_instru = ''
+    gd30d_ci_plazol = ''
+    gd30d_ci_precio = ''
+    gd30a_24_nombre = ''
+    gd30a_24_instru = ''
+    gd30a_24_plazol = ''
+    gd30a_24_precio = ''
+    gd30c_24_nombre = ''
+    gd30c_24_instru = ''
+    gd30c_24_plazol = ''
+    gd30c_24_precio = ''
+    gd30d_24_nombre = ''
+    gd30d_24_instru = ''
+    gd30d_24_plazol = ''
+    gd30d_24_precio = ''
+    gd30a_48_nombre = ''
+    gd30a_48_instru = ''
+    gd30a_48_plazol = ''
+    gd30a_48_precio = ''
+    gd30c_48_nombre = ''
+    gd30c_48_instru = ''
+    gd30c_48_plazol = ''
+    gd30c_48_precio = ''
+    gd30d_48_nombre = ''
+    gd30d_48_instru = ''
+    gd30d_48_plazol = ''
+    gd30d_48_precio = ''
+
+    socket.onmessage = function(e){
+      var data = JSON.parse(e.data);
+
+      nombre = data.msg.securityID
+      instru = data.msg.symbol
+      plazol = data.msg.settlementType
+      precio = data.msg.last.price
+
+      // AL30 CI
+      if (nombre == ('AL30-0001-C-CT-ARS')) {
+        al30a_ci_nombre = data.msg.securityID
+        al30a_ci_instru = data.msg.symbol
+        al30a_ci_plazol = data.msg.settlementType
+        al30a_ci_precio = data.msg.last.price
+      }
+
+      if (nombre == ('AL30C-0001-C-CT-EXT')) {
+        al30c_ci_nombre = data.msg.securityID
+        al30c_ci_instru = data.msg.symbol
+        al30c_ci_plazol = data.msg.settlementType
+        al30c_ci_precio = data.msg.last.price
+      }
+
+      if (nombre == ('AL30D-0001-C-CT-USD')) {
+        al30d_ci_nombre = data.msg.securityID
+        al30d_ci_instru = data.msg.symbol
+        al30d_ci_plazol = data.msg.settlementType
+        al30d_ci_precio = data.msg.last.price
+      }
+
+      // AL30 24
+      if (nombre == ('AL30-0002-C-CT-ARS')) {
+        al30a_24_nombre = data.msg.securityID
+        al30a_24_instru = data.msg.symbol
+        al30a_24_plazol = data.msg.settlementType
+        al30a_24_precio = data.msg.last.price
+      }
+
+      if (nombre == ('AL30C-0002-C-CT-EXT')) {
+        al30c_24_nombre = data.msg.securityID
+        al30c_24_instru = data.msg.symbol
+        al30c_24_plazol = data.msg.settlementType
+        al30c_24_precio = data.msg.last.price
+      }
+
+      if (nombre == ('AL30D-0002-C-CT-USD')) {
+        al30d_24_nombre = data.msg.securityID
+        al30d_24_instru = data.msg.symbol
+        al30d_24_plazol = data.msg.settlementType
+        al30d_24_precio = data.msg.last.price
+      }
+
+      // AL30 48
+      if (nombre == ('AL30-0003-C-CT-ARS')) {
+        al30a_48_nombre = data.msg.securityID
+        al30a_48_instru = data.msg.symbol
+        al30a_48_plazol = data.msg.settlementType
+        al30a_48_precio = data.msg.last.price
+      }
+
+      if (nombre == ('AL30C-0003-C-CT-EXT')) {
+        al30c_48_nombre = data.msg.securityID
+        al30c_48_instru = data.msg.symbol
+        al30c_48_plazol = data.msg.settlementType
+        al30c_48_precio = data.msg.last.price
+      }
+
+      if (nombre == ('AL30D-0003-C-CT-USD')) {
+        al30d_48_nombre = data.msg.securityID
+        al30d_48_instru = data.msg.symbol
+        al30d_48_plazol = data.msg.settlementType
+        al30d_48_precio = data.msg.last.price
+      }
+
+      // GD30 CI
+      if (nombre == ('GD30-0001-C-CT-ARS')) {
+        gd30a_ci_nombre = data.msg.securityID
+        gd30a_ci_instru = data.msg.symbol
+        gd30a_ci_plazol = data.msg.settlementType
+        gd30a_ci_precio = data.msg.last.price
+      }
+
+      if (nombre == ('GD30C-0001-C-CT-EXT')) {
+        gd30c_ci_nombre = data.msg.securityID
+        gd30c_ci_instru = data.msg.symbol
+        gd30c_ci_plazol = data.msg.settlementType
+        gd30c_ci_precio = data.msg.last.price
+      }
+
+      if (nombre == ('GD30D-0001-C-CT-USD')) {
+        gd30d_ci_nombre = data.msg.securityID
+        gd30d_ci_instru = data.msg.symbol
+        gd30d_ci_plazol = data.msg.settlementType
+        gd30d_ci_precio = data.msg.last.price
+      }
+
+      // GD30 24
+      if (nombre == ('GD30-0002-C-CT-ARS')) {
+        gd30a_24_nombre = data.msg.securityID
+        gd30a_24_instru = data.msg.symbol
+        gd30a_24_plazol = data.msg.settlementType
+        gd30a_24_precio = data.msg.last.price
+      }
+
+      if (nombre == ('GD30C-0002-C-CT-EXT')) {
+        gd30c_24_nombre = data.msg.securityID
+        gd30c_24_instru = data.msg.symbol
+        gd30c_24_plazol = data.msg.settlementType
+        gd30c_24_precio = data.msg.last.price
+      }
+
+      if (nombre == ('GD30D-0002-C-CT-USD')) {
+        gd30d_24_nombre = data.msg.securityID
+        gd30d_24_instru = data.msg.symbol
+        gd30d_24_plazol = data.msg.settlementType
+        gd30d_24_precio = data.msg.last.price
+      }
+
+      // GD30 48
+      if (nombre == ('GD30-0003-C-CT-ARS')) {
+        gd30a_48_nombre = data.msg.securityID
+        gd30a_48_instru = data.msg.symbol
+        gd30a_48_plazol = data.msg.settlementType
+        gd30a_48_precio = data.msg.last.price
+      }
+
+      if (nombre == ('GD30C-0003-C-CT-EXT')) {
+        gd30c_48_nombre = data.msg.securityID
+        gd30c_48_instru = data.msg.symbol
+        gd30c_48_plazol = data.msg.settlementType
+        gd30c_48_precio = data.msg.last.price
+      }
+
+      if (nombre == ('GD30D-0003-C-CT-USD')) {
+        gd30d_48_nombre = data.msg.securityID
+        gd30d_48_instru = data.msg.symbol
+        gd30d_48_plazol = data.msg.settlementType
+        gd30d_48_precio = data.msg.last.price
+      }
+
+      mep_al30_ci = ''
+      cab_al30_ci = ''
+      mep_al30_24 = ''
+      cab_al30_24 = ''
+      mep_al30_48 = ''
+      cab_al30_48 = ''
+      mep_gd30_ci = ''
+      cab_gd30_ci = ''
+      mep_gd30_24 = ''
+      cab_gd30_24 = ''
+      mep_gd30_48 = ''
+      cab_gd30_48 = ''
+
+      dolar_m = ''
+      dolar_c = ''
+
+      // AL30 CI
+      if (al30d_ci_precio != '') {
+        mep_al30_ci = al30a_ci_precio / al30d_ci_precio;
+        mep_al30_ci = mep_al30_ci.toFixed(2)
+        console.table('DOLAR MEP   -', al30a_ci_instru, al30a_ci_plazol, mep_al30_ci);
+        document.querySelector('#mep_al30_ci').innerText = 'MEP ' + al30a_ci_instru + ' ' + al30a_ci_plazol + ' ' + mep_al30_ci;
+      }
+      if (al30c_ci_precio != '') {
+        cab_al30_ci = al30a_ci_precio / al30c_ci_precio;
+        cab_al30_ci = cab_al30_ci.toFixed(2)
+        console.table('DOLAR CABLE -', al30a_ci_instru, al30a_ci_plazol, cab_al30_ci);
+        document.querySelector('#cab_al30_ci').innerText = 'CAB ' + al30a_ci_instru + ' ' + al30a_ci_plazol + ' ' + cab_al30_ci;
+      }
+
+      // AL30 24
+      if (al30d_24_precio != '') {
+        mep_al30_24 = al30a_24_precio / al30d_24_precio;
+        mep_al30_24 = mep_al30_24.toFixed(2)
+        console.table('DOLAR MEP   -', al30a_24_instru, al30a_24_plazol, mep_al30_24);
+        document.querySelector('#mep_al30_24').innerText = 'MEP ' + al30a_24_instru + ' ' + al30a_24_plazol + ' ' + mep_al30_24;
+      }
+      if (al30c_24_precio != '') {
+        cab_al30_24 = al30a_24_precio / al30c_24_precio;
+        cab_al30_24 = cab_al30_24.toFixed(2)
+        console.table('DOLAR CABLE -', al30a_24_instru, al30a_24_plazol, cab_al30_24);
+        document.querySelector('#cab_al30_24').innerText = 'CAB ' + al30a_24_instru + ' ' + al30a_24_plazol + ' ' + cab_al30_24;
+      }
+
+      // AL30 48
+      if (al30d_48_precio != '') {
+        mep_al30_48 = al30a_48_precio / al30d_48_precio;
+        mep_al30_48 = mep_al30_48.toFixed(2)
+        console.table('DOLAR MEP   -', al30a_48_instru, al30a_48_plazol, mep_al30_48);
+        document.querySelector('#mep_al30_48').innerText = 'MEP ' + al30a_48_instru + ' ' + al30a_48_plazol + ' ' + mep_al30_48;
+      }
+      if (al30c_48_precio != '') {
+        cab_al30_48 = al30a_48_precio / al30c_48_precio;
+        cab_al30_48 = cab_al30_48.toFixed(2)
+        console.table('DOLAR CABLE -', al30a_48_instru, al30a_48_plazol, cab_al30_48);
+        document.querySelector('#cab_al30_48').innerText = 'CAB ' + al30a_48_instru + ' ' + al30a_48_plazol + ' ' + cab_al30_48;
+      }
+
+      // GD30 CI
+      if (gd30d_ci_precio != '') {
+        mep_gd30_ci = gd30a_ci_precio / gd30d_ci_precio;
+        mep_gd30_ci = mep_gd30_ci.toFixed(2)
+        console.table('DOLAR MEP   -', gd30a_ci_instru, gd30a_ci_plazol, mep_gd30_ci);
+        document.querySelector('#mep_gd30_ci').innerText = 'MEP ' + gd30a_ci_instru + ' ' + gd30a_ci_plazol + ' ' + mep_gd30_ci;
+      }
+      if (gd30c_ci_precio != '') {
+        cab_gd30_ci = gd30a_ci_precio / gd30c_ci_precio;
+        cab_gd30_ci = cab_gd30_ci.toFixed(2)
+        console.table('DOLAR CABLE -', gd30a_ci_instru, gd30a_ci_plazol, cab_gd30_ci);
+        document.querySelector('#cab_gd30_ci').innerText = 'CAB ' + gd30a_ci_instru + ' ' + gd30a_ci_plazol + ' ' + cab_gd30_ci;
+      }
+
+      // GD30 24
+      if (gd30d_24_precio != '') {
+        mep_gd30_24 = gd30a_24_precio / gd30d_24_precio;
+        mep_gd30_24 = mep_gd30_24.toFixed(2)
+        console.table('DOLAR MEP   -', gd30a_24_instru, gd30a_24_plazol, mep_gd30_24);
+        document.querySelector('#mep_gd30_24').innerText = 'MEP ' + gd30a_24_instru + ' ' + gd30a_24_plazol + ' ' + mep_gd30_24;
+      }
+      if (gd30c_24_precio != '') {
+        cab_gd30_24 = gd30a_24_precio / gd30c_24_precio;
+        cab_gd30_24 = cab_gd30_24.toFixed(2)
+        console.table('DOLAR CABLE -', gd30a_24_instru, gd30a_24_plazol, cab_gd30_24);
+        document.querySelector('#cab_gd30_24').innerText = 'CAB ' + gd30a_24_instru + ' ' + gd30a_24_plazol + ' ' + cab_gd30_24;
+      }
+
+      // GD30 48
+      if (gd30d_48_precio != '') {
+        mep_gd30_48 = gd30a_48_precio / gd30d_48_precio;
+        mep_gd30_48 = mep_gd30_48.toFixed(2)
+        console.table('DOLAR MEP   -', gd30a_48_instru, gd30a_48_plazol, mep_gd30_48);
+        document.querySelector('#mep_gd30_48').innerText = 'MEP ' + gd30a_48_instru + ' ' + gd30a_48_plazol + ' ' + mep_gd30_48;
+      }
+      if (gd30c_48_precio != '') {
+        cab_gd30_48 = gd30a_48_precio / gd30c_48_precio;
+        cab_gd30_48 = cab_gd30_48.toFixed(2)
+        console.table('DOLAR CABLE -', gd30a_48_instru, gd30a_48_plazol, cab_gd30_48);
+        document.querySelector('#cab_gd30_48').innerText = 'CAB ' + gd30a_48_instru + ' ' + gd30a_48_plazol + ' ' + cab_gd30_48;
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+  </html>
