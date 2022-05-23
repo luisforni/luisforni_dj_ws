@@ -2,7 +2,7 @@
 
 Esta aplicación web está construida con DJANGO y WEBSOCKETS. Permite cotizar el DOLAR MEP y el DOLAR CABLE a partir de los instrumentos AL30 y GD30 en los plazos de liquidación CI, T+1 y T+2.
 
-## Crear entorno virtual
+## Clonar repositorio
 
 ```bash
 git clone https://github.com/luisforni/luisforni_dj_ws.git
