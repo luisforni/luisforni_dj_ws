@@ -20,10 +20,12 @@ env\Scripts\activate
 pip3 install -r librerias.txt
 ```
 
-## Projecto
+## Ejecutar projecto
 
 ```bash
 cd balanz
 python manage.py migrate
 python manage.py runserver
 ```
+
+Abrir en el navegador https://localhost:8000
