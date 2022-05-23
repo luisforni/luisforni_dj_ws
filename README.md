@@ -28,4 +28,4 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-Abrir en el navegador https://localhost:8000
+Abrir en el navegador http://localhost:8000
