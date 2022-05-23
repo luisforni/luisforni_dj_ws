@@ -1,13 +1,29 @@
+# Entorno Virtual
+
+```bash
 virtualenv env
+```
 
-source env/bin/activate (linux)
+En linux
+```bash
+source env/bin/activate
+```
 
-env\Scripts\activate (windows)
+En windows
+```bash
+env\Scripts\activate
+```
 
+## Instalación de librerias
+
+```bash
 pip3 install -r librerias.txt
+```
 
+## Projecto
+
+```bash
 cd balanz
-
 python manage.py migrate
-
 python manage.py runserver
+```
