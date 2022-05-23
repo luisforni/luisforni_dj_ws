@@ -1,10 +1,8 @@
 virtualenv env
 
-en linux
-source env/bin/activate
+source env/bin/activate (linux)
 
-en windows
-env\Scripts\activate
+env\Scripts\activate (windows)
 
 pip3 install -r librerias.txt
 
